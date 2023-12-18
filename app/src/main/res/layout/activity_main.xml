@@ -1,18 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".presentation.StartActivity">
 
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="48dp"
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        android:layout_marginEnd="32dp"
+        >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_coin"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="100"
+            android:paddingHorizontal="8dp"
+            android:textSize="24sp"
+            android:gravity="center"
+            />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:text="Game Logo №1"
+            android:textSize="36sp"
+            android:padding="24dp"
+            android:gravity="center"
+            android:background="@drawable/background_main_icon"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:layout_marginTop="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLAY"
+        android:textSize="24sp"
+        android:paddingHorizontal="64dp"
+        />
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/background_privacy_icon"
+        android:layout_marginTop="64dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/ic_lock"
+        android:padding="16dp"
+
+        />
+
+
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
