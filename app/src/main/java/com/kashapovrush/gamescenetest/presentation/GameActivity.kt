@@ -5,11 +5,21 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.kashapovrush.gamescenetest.R
+import com.kashapovrush.gamescenetest.databinding.ActivityGameBinding
 
 class GameActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityGameBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
+        binding = ActivityGameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
+        binding.endOfTimeWarning.setOnClickListener {
+            startActivity(GameOverActivity.newIntent(this))
+        }
     }
 
     companion object {
