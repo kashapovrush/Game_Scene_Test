@@ -112,6 +112,7 @@
         >
 
         <Button
+            android:id="@+id/button_double_reward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Double Reward"
@@ -122,6 +123,7 @@
             />
 
         <ImageView
+            android:id="@+id/button_to_home"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@drawable/ic_home"
