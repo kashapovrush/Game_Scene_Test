@@ -1,5 +1,7 @@
 package com.kashapovrush.gamescenetest.presentation
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kashapovrush.gamescenetest.databinding.ActivityStartBinding
@@ -17,4 +19,12 @@ class StartActivity : AppCompatActivity() {
             startActivity(GameActivity.newIntent(this))
         }
     }
+
+    companion object {
+
+        fun newIntent(context: Context): Intent {
+            return Intent(context, StartActivity::class.java)
+        }
+    }
+
 }
