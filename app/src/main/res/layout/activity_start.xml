@@ -57,6 +57,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
+        android:id="@+id/button_start_game"
         android:layout_marginTop="64dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,12 +1,20 @@
 package com.kashapovrush.gamescenetest.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.kashapovrush.gamescenetest.R
+import androidx.appcompat.app.AppCompatActivity
+import com.kashapovrush.gamescenetest.databinding.ActivityStartBinding
 
 class StartActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityStartBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityStartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.buttonStartGame.setOnClickListener {
+            startActivity(GameActivity.newIntent(this))
+        }
     }
 }
