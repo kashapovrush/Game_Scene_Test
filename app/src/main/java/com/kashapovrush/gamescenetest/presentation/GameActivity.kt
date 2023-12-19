@@ -72,23 +72,35 @@ class GameActivity : AppCompatActivity() {
 
         val list = mutableListOf<Int>()
         val listButtons = mutableListOf<ImageView>()
+        val colors = mutableListOf<ImageView>()
         var count = 0
         for (i in 0..19) {
 
+
             buttons[i].setOnClickListener {
+                Log.d("MainActivityTest",(buttons[i].background ).toString())
+                buttons.forEachIndexed { index, _ ->
+                    buttons[index].background = getDrawable(R.drawable.background_card_game)
+                }
+                buttons[i].background = getDrawable(R.drawable.background_card_blue)
                 list.add(images[i])
                 listButtons.add(buttons[i])
+                var last = 0
 
                 if (count < 100) {
 
                     if (list.size == 2) {
                         if (list[0] == list[1] && listButtons[0] != listButtons[1]) {
+                            buttons[i].background = getDrawable(R.drawable.background_card_green)
                             buttons[i].setImageResource(R.drawable.background_card_game)
+
                             buttons[i].isEnabled = false
                             count++
                             images.forEachIndexed { index, _ ->
                                 if (images[index] == images[i]) {
+                                    last = index
                                     buttons[index].setImageResource(R.drawable.background_card_game)
+                                    buttons[index].background = getDrawable(R.drawable.background_card_green)
                                     buttons[index].isEnabled = false
                                     list.clear()
                                     listButtons.clear()
@@ -104,6 +116,9 @@ class GameActivity : AppCompatActivity() {
                                 }
                             }
                         } else {
+                            buttons[i].background = getDrawable(R.drawable.background_card_red)
+                            listButtons[0].background = getDrawable(R.drawable.background_card_red)
+
                             listButtons.clear()
                             list.clear()
                         }
