@@ -27,8 +27,10 @@ class GameOverActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, GameOverActivity::class.java)
+        fun newIntent(context: Context, value: Int): Intent {
+            val intent = Intent(context, GameOverActivity::class.java)
+            intent.putExtra("KEY", value)
+            return intent
         }
     }
 }
