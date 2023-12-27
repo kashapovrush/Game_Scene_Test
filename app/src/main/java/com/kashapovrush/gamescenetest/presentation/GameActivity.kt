@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 class GameActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGameBinding
-    private lateinit var imageView: ImageView
     private var value = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,59 +25,19 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val images = imagesList()
 
-        val images = mutableListOf(
-            R.drawable.game1, R.drawable.game1,
-            R.drawable.game2, R.drawable.game2,
-            R.drawable.game3, R.drawable.game3,
-            R.drawable.game4, R.drawable.game4,
-            R.drawable.game5, R.drawable.game5,
-            R.drawable.game6, R.drawable.game6,
-            R.drawable.game7, R.drawable.game7,
-            R.drawable.game8, R.drawable.game8,
-            R.drawable.game9, R.drawable.game9,
-            R.drawable.game10, R.drawable.game10,
+        val buttons = buttonsList()
 
-            )
-
-        val buttons = arrayOf(
-            binding.button1,
-            binding.button2,
-            binding.button3,
-            binding.button4,
-            binding.button5,
-            binding.button6,
-            binding.button7,
-            binding.button8,
-            binding.button9,
-            binding.button10,
-            binding.button11,
-            binding.button12,
-            binding.button13,
-            binding.button14,
-            binding.button15,
-            binding.button16,
-            binding.button17,
-            binding.button18,
-            binding.button19,
-            binding.button20,
-        )
-
-        images.shuffle()
-
-        images.forEachIndexed { index, _ ->
-            buttons[index].setImageResource(images[index])
-        }
+        setRandomImages(images, buttons)
 
         val list = mutableListOf<Int>()
         val listButtons = mutableListOf<ImageView>()
-        val colors = mutableListOf<ImageView>()
         var count = 0
         for (i in 0..19) {
 
 
             buttons[i].setOnClickListener {
-                Log.d("MainActivityTest",(buttons[i].background ).toString())
                 buttons.forEachIndexed { index, _ ->
                     buttons[index].background = getDrawable(R.drawable.background_card_game)
                 }
@@ -132,6 +91,58 @@ class GameActivity : AppCompatActivity() {
 
 
         setTiming()
+    }
+
+    private fun setRandomImages(
+        images: MutableList<Int>,
+        buttons: Array<ImageView>
+    ) {
+        images.shuffle()
+
+        images.forEachIndexed { index, _ ->
+            buttons[index].setImageResource(images[index])
+        }
+    }
+
+    private fun imagesList(): MutableList<Int> {
+        return mutableListOf(
+            R.drawable.game1, R.drawable.game1,
+            R.drawable.game2, R.drawable.game2,
+            R.drawable.game3, R.drawable.game3,
+            R.drawable.game4, R.drawable.game4,
+            R.drawable.game5, R.drawable.game5,
+            R.drawable.game6, R.drawable.game6,
+            R.drawable.game7, R.drawable.game7,
+            R.drawable.game8, R.drawable.game8,
+            R.drawable.game9, R.drawable.game9,
+            R.drawable.game10, R.drawable.game10,
+
+            )
+    }
+
+    private fun buttonsList(): Array<ImageView> {
+        return arrayOf(
+            binding.button1,
+            binding.button2,
+            binding.button3,
+            binding.button4,
+            binding.button5,
+            binding.button6,
+            binding.button7,
+            binding.button8,
+            binding.button9,
+            binding.button10,
+            binding.button11,
+            binding.button12,
+            binding.button13,
+            binding.button14,
+            binding.button15,
+            binding.button16,
+            binding.button17,
+            binding.button18,
+            binding.button19,
+            binding.button20,
+        )
     }
 
 
