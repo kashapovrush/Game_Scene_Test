@@ -8,34 +8,45 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.kashapovrush.gamescenetest.R
 import com.kashapovrush.gamescenetest.databinding.ActivityGameBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class GameActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGameBinding
+    private lateinit var viewModel: GameActivityViewModel
     private var value = 100
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val component by lazy {
+        (application as GameApplication).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this, viewModelFactory)[GameActivityViewModel::class.java]
+
         val images = imagesList()
-
         val buttons = buttonsList()
-
-        setRandomImages(images, buttons)
+        viewModel.setRandomImages(images, buttons)
 
         val list = mutableListOf<Int>()
         val listButtons = mutableListOf<ImageView>()
         var count = 0
-        for (i in 0..19) {
 
+        for (i in 0..19) {
 
             buttons[i].setOnClickListener {
                 buttons.forEachIndexed { index, _ ->
@@ -91,17 +102,6 @@ class GameActivity : AppCompatActivity() {
 
 
         setTiming()
-    }
-
-    private fun setRandomImages(
-        images: MutableList<Int>,
-        buttons: Array<ImageView>
-    ) {
-        images.shuffle()
-
-        images.forEachIndexed { index, _ ->
-            buttons[index].setImageResource(images[index])
-        }
     }
 
     private fun imagesList(): MutableList<Int> {
