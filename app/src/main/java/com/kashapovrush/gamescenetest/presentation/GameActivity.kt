@@ -42,9 +42,24 @@ class GameActivity : AppCompatActivity() {
         val buttons = buttonsList()
         viewModel.setRandomImages(images, buttons)
 
-        val list = mutableListOf<Int>()
-        val listButtons = mutableListOf<ImageView>()
+        val listBufferForImages = mutableListOf<Int>()
+        val listBufferForButtons = mutableListOf<ImageView>()
         var count = 0
+
+        value = viewModel.setTimingGame(
+            setVisibilityText = {
+                runOnUiThread {
+                    binding.endOfTimeWarning.visibility = View.VISIBLE
+                }
+            },
+            chronometer = binding.gameTiming,
+            setCountScore = {
+                runOnUiThread {
+                    value -= 5
+                    binding.count.text = it.toString()
+                }
+            }
+        )
 
         for (i in 0..19) {
 
@@ -53,14 +68,13 @@ class GameActivity : AppCompatActivity() {
                     buttons[index].background = getDrawable(R.drawable.background_card_game)
                 }
                 buttons[i].background = getDrawable(R.drawable.background_card_blue)
-                list.add(images[i])
-                listButtons.add(buttons[i])
-                var last = 0
+                listBufferForImages.add(images[i])
+                listBufferForButtons.add(buttons[i])
 
                 if (count < 100) {
 
-                    if (list.size == 2) {
-                        if (list[0] == list[1] && listButtons[0] != listButtons[1]) {
+                    if (listBufferForImages.size == 2) {
+                        if (listBufferForImages[0] == listBufferForImages[1] && listBufferForButtons[0] != listBufferForButtons[1]) {
                             buttons[i].background = getDrawable(R.drawable.background_card_green)
                             buttons[i].setImageResource(R.drawable.background_card_game)
 
@@ -68,14 +82,13 @@ class GameActivity : AppCompatActivity() {
                             count++
                             images.forEachIndexed { index, _ ->
                                 if (images[index] == images[i]) {
-                                    last = index
                                     buttons[index].setImageResource(R.drawable.background_card_game)
-                                    buttons[index].background = getDrawable(R.drawable.background_card_green)
+                                    buttons[index].background =
+                                        getDrawable(R.drawable.background_card_green)
                                     buttons[index].isEnabled = false
-                                    list.clear()
-                                    listButtons.clear()
+                                    listBufferForImages.clear()
+                                    listBufferForButtons.clear()
                                     if (count == 10) {
-                                        Log.d("MainActivityTest", value.toString())
                                         startActivity(
                                             GameOverActivity.newIntent(
                                                 this@GameActivity,
@@ -87,12 +100,13 @@ class GameActivity : AppCompatActivity() {
                             }
                         } else {
                             buttons[i].background = getDrawable(R.drawable.background_card_red)
-                            listButtons[0].background = getDrawable(R.drawable.background_card_red)
+                            listBufferForButtons[0].background =
+                                getDrawable(R.drawable.background_card_red)
 
-                            listButtons.clear()
-                            list.clear()
+                            listBufferForButtons.clear()
+                            listBufferForImages.clear()
                         }
-                        list.clear()
+                        listBufferForImages.clear()
                     }
                 }
             }
@@ -100,8 +114,6 @@ class GameActivity : AppCompatActivity() {
 
         }
 
-
-        setTiming()
     }
 
     private fun imagesList(): MutableList<Int> {
@@ -143,35 +155,6 @@ class GameActivity : AppCompatActivity() {
             binding.button19,
             binding.button20,
         )
-    }
-
-
-    private fun setTiming() {
-
-        with(binding.gameTiming) { ->
-            base = SystemClock.elapsedRealtime()
-            this.start()
-        }
-
-        CoroutineScope(Dispatchers.IO).launch {
-            delay(10000)
-            runOnUiThread {
-                binding.endOfTimeWarning.visibility = View.VISIBLE
-            }
-            delay(11000)
-
-            while (true) {
-                if (value > 10) {
-                    value -= 5
-                }
-
-                runOnUiThread {
-                    binding.count.text = value.toString()
-                }
-                delay(1000)
-            }
-
-        }
     }
 
     companion object {
